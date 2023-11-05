@@ -1,0 +1,15 @@
+.tag {
+    display: inline-block;;
+    color: #000000;
+    border-radius: 5px;
+    border: 1px solid #303030;
+    padding: 5px 5px;
+    margin-right: 5px;
+    margin-bottom:5px;
+}
+
+#cosa-negra{;
+    @media (min-width: 0px) and (max-width: 768px) {
+        display: none;
+    }
+}
