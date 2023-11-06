@@ -19,6 +19,10 @@ class ComposerStaticInita97f797adf90c8ca6af20d216f052a18
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'P' => 
+        array (
+            'PhpOption\\' => 10,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -33,6 +37,10 @@ class ComposerStaticInita97f797adf90c8ca6af20d216f052a18
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
         'Dotenv\\' => 
         array (

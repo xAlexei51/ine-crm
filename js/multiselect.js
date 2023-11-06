@@ -8,7 +8,7 @@ document.getElementById('enviarFormulario').addEventListener('click', function (
     });
 
     var form = document.createElement('form');
-    form.action = 'php/catch-data.php';
+    form.action = 'php/send-messages.php';
     form.method = 'post';
 
     valoresSeleccionados.forEach(function (valor) {

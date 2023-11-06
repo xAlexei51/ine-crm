@@ -55,7 +55,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
+                  <a href="" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z" />
@@ -63,8 +63,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                       </span>
-                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Envio de correos</span>                      
-                      
+                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Envio de mensajes</span>                                            
                     </a>
                   </li>
                 <!-- Sidebar Links... -->
@@ -74,16 +73,18 @@
             <div class="flex-shrink-0 p-2 border-t max-h-14">
               <button
                 class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
+                <a href="php/auth-logout.php">
                 <span>
                   <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
                 </span>
-                <span :class="{'lg:hidden': !isSidebarOpen}"> Cerrar Sesión </span>
+                <span :class="{'lg:hidden': !isSidebarOpen}"> 
+                  Cerrar Sesión</span>
+                </a>
               </button>
             </div>
-          </aside>
-    
+          </aside>    
           <div class="flex flex-col flex-1 h-full overflow-hidden">
             <!-- Navbar -->
             <header class="flex-shrink-0 border-b">
@@ -345,7 +346,7 @@
           }
         </script>
         
-    </div>, initial-scale=1.0">
+    </div>
     <title>Document</title>
 </head>
 <body>

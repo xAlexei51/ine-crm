@@ -1,30 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <title>Document</title>
+</head>
+<body>
+
 <?php
 
-require_once '../vendor/autoload.php';
 use Twilio\Rest\Client;
+require_once '../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
+$dotenv->load();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
     $seleccionados = $_POST['seleccionados'];
 
     // Haz lo que necesites con los datos seleccionados
-    foreach ($seleccionados as $email) {
-        echo "Correos: ". $email . "<br>";    
-        $sid    = "AC1f0e2d4ce39b7f5ee69fb5f28cc1e56e";
-        $token  = "334e00d332af7f415da052e31c4db493";
+    foreach ($seleccionados as $phone) {
+        echo "Correos: ". $phone . "<br>";    
+        $sid    = $_ENV['SID'];
+        $token  = $_ENV['TOKEN'];
         $twilio = new Client($sid, $token);
 
-    $message = $twilio->messages
-      ->create("whatsapp:+521".$email, // to
-        array(
-          "from" => "whatsapp:+14155238886",
-          "body" => "Hola puta"
-        )
-      );
+       
+    
+        $message = $twilio->messages
+          ->create("whatsapp:+521".$phone, // to
+            array(
+              "from" => "whatsapp:+14155238886",
+              "body" => "Your appointment is coming up on July 21 at 3PM"
+            )
+          );
 
-print($message->sid);
-
-        // Realiza acciones adicionales con cada ID seleccionado
+    print($message->sid);
     }
 } else {
-    echo "No se han seleccionado elementos.";
+  echo "<script>";
+  echo "Swal.fire({
+          title: '¡Ups!',
+          text: 'Pararece que no has seleccionado usuarios!',
+          icon: 'warning',
+          confirmButtonText: '¡Entendido!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+          // Redirige a otra página después de cerrar el cuadro de diálogo
+          window.location.href = '../militantesList.php';
+          }
+      });";
+  echo "</script>";
 }
 ?>
+  
+</body>
+</html>

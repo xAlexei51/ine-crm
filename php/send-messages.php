@@ -1,17 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport">    
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/styles.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">  
+    <link rel="stylesheet" href="styles/styles.css">        
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <div>
+    <title>Envio de mensajes</title>
+</head>
+<body>
+<?php
+
+use Twilio\Rest\Client;
+require_once '../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
+$dotenv->load();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
+    $seleccionados = $_POST['seleccionados'];
+    // Haz lo que necesites con los datos seleccionados
+    foreach ($seleccionados as $phone) {
+        echo "Telefonos: ". $phone . "<br>";            
+    }
+} else {
+  echo "<script>";
+  echo "Swal.fire({
+          title: '¡Ups!',
+          text: 'Pararece que no has seleccionado usuarios!',
+          icon: 'warning',
+          confirmButtonText: '¡Entendido!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+          // Redirige a otra página después de cerrar el cuadro de diálogo
+          window.location.href = '../militantesList.php';
+          }
+      });";
+  echo "</script>";
+}
+?>
+<div>
         <div class="flex h-screen overflow-y-hidden bg-white" x-data="setup()" x-init="$refs.loading.classList.add('hidden')">
           <!-- Loading screen -->
           <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center text-white bg-black bg-opacity-50" style="backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)" >
-            Loading.....
+            Cargando.....
           </div>    
           <!-- Sidebar backdrop -->
           <div x-show.in.out.opacity="isSidebarOpen" class="fixed inset-0 z-10 bg-black bg-opacity-20 lg:hidden" style="backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)"></div>
@@ -33,7 +64,7 @@
             <nav class="flex-1 overflow-hidden hover:overflow-y-auto">
               <ul class="p-2 overflow-hidden">
                 <li>
-                  <a href="../militantesList.php" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
+                  <a href="militantesList.php" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
                     <span>                        
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
@@ -45,7 +76,7 @@
                   </a>
                 </li>
                 <li>
-                    <a href="../adminUserList.php" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}" >
+                    <a href="adminUserList.php" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}" >
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -57,7 +88,7 @@
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
+                  <a href="send-messages.php" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100" :class="{'justify-center': !isSidebarOpen}">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z" />
@@ -65,7 +96,7 @@
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                       </span>
-                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Envio de correos</span>                      
+                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Envio de Mensajes</span>                      
                       
                     </a>
                   </li>
@@ -81,11 +112,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
                 </span>
-                <span :class="{'lg:hidden': !isSidebarOpen}"> Cerrar Sesión </span>
+                <span :class="{'lg:hidden': !isSidebarOpen}"> 
+                  <a href="php/auth-logout.php">Cerrar Sesión</a> </span>
               </button>
             </div>
-          </aside>
-    
+          </aside>    
           <div class="flex flex-col flex-1 h-full overflow-hidden">
             <!-- Navbar -->
             <header class="flex-shrink-0 border-b">
@@ -120,8 +151,7 @@
                       </svg>
                     </button>
                   </div>
-                </div>
-    
+                </div>    
                 <!-- Desktop search box -->
                 <div class="items-center hidden px-2 space-x-2 md:flex-1 md:flex md:mr-auto md:ml-5">
                   <!-- search icon -->
@@ -140,18 +170,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                   </button>    
-                  <div class="items-center hidden space-x-3 md:flex">
-                    <!-- Notification Button -->                    
-    
-                    <!-- Services Button -->
-                    
-                    <!-- Options Button -->
-                    
-    
-                      <!-- Dropdown card -->
-                      
-    
-                  <!-- avatar button -->
+                  <div class="items-center hidden space-x-3 md:flex">                                                              
                   <div class="relative" x-data="{ isOpen: false }">
                     <button @click="isOpen = !isOpen" class="p-1 bg-gray-200 rounded-full focus:outline-none focus:ring">
                       <img
@@ -165,11 +184,7 @@
                     <div class="absolute right-0 p-1 bg-green-400 border border-white rounded-full bottom-3"></div>
     
                     <!-- Dropdown card -->
-                    <div
-                      @click.away="isOpen = false"
-                      x-show.transition.opacity="isOpen"
-                      class="absolute mt-3 transform -translate-x-full bg-white rounded-md shadow-lg min-w-max"
-                    >
+                    <div @click.away="isOpen = false" x-show.transition.opacity="isOpen" class="absolute mt-3 transform -translate-x-full bg-white rounded-md shadow-lg min-w-max">
                       <div class="flex flex-col p-4 space-y-1 font-medium border-b">
                         <span class="text-gray-800">Ahmed Kamel</span>
                         <span class="text-sm text-gray-400">ahmed.kamel@example.com</span>
@@ -192,149 +207,58 @@
             </header>
             <!-- Main content -->
             <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
-              <!-- Main content header -->
-              <div
-                class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row"
-              >                                
-              </div>
-    
+              <!-- Main content header -->               
               <!-- Start Content -->
-              <div class="w-1/2 p-6 bg-white rounded-lg shadow">
+              <div class="w-full p-6 bg-white rounded-lg shadow">
                 <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Inicio / Militantes</h5>
-                </a>                                                                  
-                <div class="flex flex-wrap -mx-3 mb-6">                  
-                    <div class="w-full px-3 mb-6 md:mb-0">
-                    <form action="filter-data.php" method="post" id="tag-form">
-                        <label for="tag-input" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-black">Añadir parametros de busqueda: </label>
-                        <input type="text" class="bg-white border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black" id="tag-input" name="tag" placeholder="Ingresa un tag">
-                        <button type="button" class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4 float-right" id="add-tag">Añadir</button>                        
-                        <input type="hidden" id="tags-hidden" name="tags" value="">
-                        <input type="submit" class="block w-full bg-emerald-700 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" value="Filtrar Datos">
-                        <div id="tag-list" class="float- w-96 flex"></div>
-                    </form>
-                  </div>                                                                     
-                </div>                                                            
-            </div>
-                                                   
-    
-              <!-- Table see (https://tailwindui.com/components/application-ui/lists/tables) -->
-              <h3 class="mt-6 text-xl">Lista de militantes</h3>
-              <div class="flex flex-col mt-6">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden rounded-md shadow-md">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-200  ">
-                            <thead class="bg-white dark:bg-gray-300">
-                                <tr>
-                                  <th scope="col" class="py-3.5 px-4 text-medium font-normal text-left  text-black">
-                                      <div class="flex items-center gap-x-3">
-                                          <input type="checkbox" id="seleccionar-todos" class="text-blue-500 rounded dark:bg-white dark:ring-offset-gray-900">
-                                              <button class="flex items-center gap-x-2">
-                                                <span class="text-black">Distrito</span>                                           
-                                              </button>
-                                                      </div>
-                                                  </th>
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Nombre
-                                                  </th>
-
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Apellidos
-                                                  </th>
-
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Codigo Postal
-                                                  </th>
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Calle
-                                                  </th>
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Municipio
-                                                  </th>
-                                                  <th scope="col" class="px-4 py-3.5 text-medium font-normal text-left text-black">
-                                                      Colonia
-                                                  </th>   
-                                                  <th scope="col" class="relative py-3.5 px-4">                                      
-                                                  <button id="enviarFormulario" class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">                                      
-                                                      Enviar Mensaje
-                                                  </button>  
-                                                  </th>
-                                              </tr>
-                                          </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-200 bg-white">
-                            <?php 
-
-                            require_once(__DIR__.'/../php/db-config.php');
-                            require_once "db-connection.php";
-                            // guardar_tags.php
-
-                            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                                // Lee los datos POST                                
-                                $tags = isset($_POST['tags']) ? json_decode($_POST['tags'], true) : [];
-
-                                if(empty($tags)){
-                                    echo "<script>";
-                                    echo "Swal.fire({
-                                            title: '¡Ups!',
-                                            text: 'Debes añadir algun parametro de busqueda antes!',
-                                            icon: 'error',
-                                            confirmButtonText: '¡Entendido!'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                // Redirige a otra página después de cerrar el cuadro de diálogo
-                                                window.location.href = '../militantesList.php';
-                                            }
-                                        });";
-                                    echo "</script>";                                    
-                                }
-
-                                $datosFiltrados = filterData($con, $tags);
-                                
-                                foreach ($datosFiltrados as $usuario):                                                                     
-                                                            
-                            ?>
-                                <tr class="dark:hover:bg-gray-200" >
-                                    <td class="px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
-                                        <div class="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" name="seleccionados[]" value="<?php echo htmlspecialchars($usuario['telefono']); ?>" class="text-blue-500 rounded dark:bg-black dark:ring-offset-black-900 dark:border-black-700">
-                                            <span class="text-black"><?php echo htmlspecialchars($usuario['distrito_elctoral']);?></span>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-medium text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['nombre']);?></td>
-                                    <td class="px-4 py-4 text-medium font-medium text-black-700 whitespace-nowrap">
-                                        <div class="inline-flex items-center px-3 py-1">                                            
-                                            <h2 class="text-medium font-normal"><?php echo htmlspecialchars($usuario['apellido_paterno']);?> <?php echo htmlspecialchars($usuario['apellido_materno']);?></h2>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['codigo_postal']);?></td>
-                                    <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['calle']);?></td>
-                                    <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['municipio']);?></td>
-                                    <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['colonia']);?></td>
-                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <div class="flex items-center gap-x-6">
-                                            <button class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">
-                                                Editar
-                                            </button>
-                                            <button class="block w-full bg-red-700 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">
-                                                <a href="delete-militant.php?id=<?php echo htmlspecialchars($usuario['id']);?>">Eliminar</a>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; }?>                                                                                                 
-                            </tbody>
-                        </table>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Inicio / Envio de mensajes</h5>
+                </a>                                 
+                <div class="flex mb-5 text-lg">                 
+                                                                                                                 
+                </div>                                  
+                    <div id="divContent" style="display: none;" class="flex flex-wrap -mx-3 mb-8">
+                      <div x-data @tags-update="console.log('tags updated', $event.detail.tags)" data-tags='["Zapopan","45066"]' class=" m-3 mb-8">
+                        <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
+                          <div class="relative" @keydown.enter.prevent="addTag(textInput)">
+                            <span class="font-bold text-black mb-5"> ¿Por qué parametros quieres realizar la busqueda? Ejemplo: Zapopan</span>
+                            <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingresa los datos los que quires filtrar">
+                            <div :class="[open ? 'block' : 'hidden']">
+                              <div class="absolute z-40 left-0 mt-2 w-full">
+                                <div class="py-1 text-sm bg-white rounded shadow-lg border border-gray-300">
+                                  <a @click.prevent="addTag(textInput)" class="block py-1 px-5 cursor-pointer hover:bg-indigo-600 hover:text-white">Add tag "<span class="font-semibold" x-text="textInput"></span>"</a>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- selections -->
+                            <template x-for="(tag, index) in tags">
+                              <div class="bg-indigo-100 inline-flex items-center text-sm rounded mt-2 mr-1">
+                                <span class="ml-2 mr-1 leading-relaxed truncate max-w-xs" x-text="tag"></span>
+                                <button @click.prevent="removeTag(index)" class="w-6 h-8 inline-block align-middle text-gray-500 hover:text-gray-600 focus:outline-none">
+                                  <svg class="w-6 h-6 fill-current mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M15.78 14.36a1 1 0 0 1-1.42 1.42l-2.82-2.83-2.83 2.83a1 1 0 1 1-1.42-1.42l2.83-2.82L7.3 8.7a1 1 0 0 1 1.42-1.42l2.83 2.83 2.82-2.83a1 1 0 0 1 1.42 1.42l-2.83 2.83 2.83 2.82z"/></svg>
+                                </button>
+                              </div>
+                            </template>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </form>
+                </div>     
+              <!-- Table see (https://tailwindui.com/components/application-ui/lists/tables) -->
+            <h3 class="mt-6 text-xl"></h3>
+            <div class="flex flex-col mt-6">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                        <div class="overflow-hidden rounded-md shadow-md">
+                            asddas                                                  
+                        </div>
+                    </div>
                 </div>
-              </div>
+             </div>
             </main>
             <!-- Main footer -->            
-          </div>
-              
-          
-              <!-- Settings Panel Content ... -->
+          </div>                        
+              <!-- Settings Panel Content -->
             </div>
           </div>
         </div>
@@ -354,39 +278,8 @@
           }
         </script>
         
-    </div>, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<script src="../js/tagselector.js"></script>
-<script src="../js/filter-multiselect.js"></script>
+    </div>
+<script src="js/tagselector.js"></script>
+<script src="js/multiselect.js" ></script>
 </body>
 </html>
-
-
-<?php 
-function filterData($con, $tags){
-    $sql = "SELECT * FROM militantes WHERE ";
-    $conditions = [];
-
-    foreach($tags as $tag){
-        $conditions[] = "(colonia LIKE '%$tag%' OR municipio LIKE '%$tag%' OR genero LIKE '%$tag%' OR distrito_elctoral LIKE '%$tag%')";
-    }
-
-    $sql .= implode(' AND ', $conditions);
-
-    $stmt = $con->prepare($sql);
-    $stmt->execute();
-
-    $datosFiltrados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $datosFiltrados;
-}
-
-$stmt = null;
-$con = null;
-
-
-
-
-?>
