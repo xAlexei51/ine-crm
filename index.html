@@ -54,7 +54,7 @@
     <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl text-center">Formulario de registro</h1>
     <div class="text-center">
       <div class="mt-10 flex items-center justify-center gap-x-6 block max-w-2xl p-6 bg-white border border-gray-200 rounded-lg shadow">     
-        <form class="w-full max-w-lg">
+        <form class="w-full max-w-lg" method="post" action="php/add-new-militante.php">
           <label class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2" for="grid-colonia">
             INFORMACION GENERAL
           </label>
@@ -64,7 +64,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Nombre(s)
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="John Doe" required>
+              <input name="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="John Doe" required>
             </div>           
           </div>
           <!-- Apellido paterno y materno -->
@@ -73,28 +73,58 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Apellido paterno
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-apellido-paterno" type="text" placeholder="Apellido paterno" required>
+              <input name="apellido_paterno" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-apellido-paterno" type="text" placeholder="Apellido paterno" required>
             </div>        
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Apellido Materno
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-apellido-materno" type="text" placeholder="Apellido Materno">
+              <input name="apellido_materno" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-apellido-materno" type="text" placeholder="Apellido Materno">
             </div>
           </div>
-          <!-- Correo electronico y telefono -->
+          <!-- Fecha de nacimiento y edad -->
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-fecha-nacimiento">
+                Fecha de nacimiento
+              </label>
+              <input name="fecha_nacimiento" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-fecha-nacimiento" type="date" onchange="calcularEdad()" required>
+            </div>        
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-edad">
+                Edad
+              </label>
+              <input name="edad" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-edad" type="text" placeholder="Edad" readonly>
+            </div>
+          </div>
+          <!-- Correo electronico, telefono -->
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
                 Correo electronico
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="example@gmail.com" required>
+              <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                Genero
+              </label>
+              <div class="relative">
+                <select name="genero" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                  <option>Masculino</option>
+                  <option>Femenino</option>
+                  <option>Otro(s)</option>                  
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
             </div>        
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-telefono">
                 Telefono
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-telefono" type="text" placeholder="Maximo de digitos" maxlength="10" required>
+              <input name="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-telefono" type="text" placeholder="Maximo de digitos" maxlength="10" required>
             </div>
           </div>
           <!-- Calle  -->
@@ -103,13 +133,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-calle">
                 Calle
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-calle" type="text" placeholder="Calle">
+              <input name="calle" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-calle" type="text" placeholder="Calle" required>
             </div>        
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-cp">
                 C.P
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-cp" type="text" placeholder="Codigo Postal">
+              <input name="codigo_postal" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-cp" type="text" placeholder="Codigo Postal" required>
             </div>
           </div>
           <!-- Numero interior y exterior -->
@@ -118,13 +148,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-numero-exterior">
                 Numero exterior
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-numero-exterior" type="text" placeholder="Numero Exterior">
+              <input name="numero_exterior" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-numero-exterior" type="text" placeholder="Numero Exterior" required>
             </div>        
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-numero-interior">
                 Numero interior
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-numero-interior" type="text" placeholder="Numero Interior">
+              <input name="numero_interior" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-numero-interior" type="text" placeholder="Numero Interior">
             </div>
           </div>
           <!-- Colonia  -->
@@ -133,13 +163,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-colonia">
                 Colonia
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-calle" type="text" placeholder="Direccion">              
+              <input name="colonia" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-calle" type="text" placeholder="Colonia" required>              
             </div>
           </div>
           <!-- Distrito -->
           <div class="flex flex-wrap -mx-3 mb-2 items-center justify-center">
             <div class="">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city" >
                 Distrito
               </label>
               <img class="items-center justify-center w-full" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Distritos_electorales_locales_-_Jalisco.svg">
@@ -151,13 +181,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-municipio">
                 Municipio
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-municipio" type="email" placeholder="Municipio">
+              <input name="municipio" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-municipio" type="text" placeholder="Municipio" required>
             </div>        
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-distrito-electoral">
                 Distrito Electoral
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-distrito-electoral" type="text" placeholder="Distrito Electoral">
+              <input name="distrito_electoral" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-distrito-electoral" type="text" placeholder="Distrito Electoral" required>
             </div>
           </div>
           <br><label class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2" for="grid-colonia">
@@ -169,13 +199,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-ocupacion">
                 Ocupación
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-ocupacion" type="text" placeholder="Ocupacion">
+              <input name="ocupacion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-ocupacion" type="text" placeholder="Ocupacion" required>
             </div>        
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-seccion">
                 Sección
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-seccion" type="text" placeholder="Sección">
+              <input name="seccion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-seccion" type="text" placeholder="Sección" required>
             </div>
           </div>
           <!-- Medio de transporte -->
@@ -185,7 +215,7 @@
                 Medio de transporte
               </label>
               <div class="relative">
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                <select name="medio_transporte" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                   <option value="">Auto</option>
                   <option value="">Transporte publico</option>
                   <option value="">Tren</option>                  
@@ -200,7 +230,7 @@
                 Nivel de estudios
               </label>
               <div class="relative">
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                <select name="nivel_de_estudios" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                   <option>Primaria</option>
                   <option>Secundaria</option>
                   <option>Bachillerato General</option>
@@ -222,15 +252,16 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-salario">
                 Salario Mensual
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-salario" type="text" placeholder="$">
+              <input name="salario_mensual" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-salario" type="text" placeholder="$">
             </div>
           </div>      
-          <br><button type="button" class="w-full bg-gray-800 text-white focus:outline-none mb focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">ENVIAR</button>
+          <br><button type="submit" class="w-full bg-gray-800 text-white focus:outline-none mb focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">ENVIAR</button>
         </form>                
       </div>
     </div>
   </div>
 </div>
+  <script src="js/age-caclulator.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     // grab everything we need

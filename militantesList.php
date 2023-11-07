@@ -5,7 +5,28 @@
     <meta name="viewport">    
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">  
     <link rel="stylesheet" href="styles/styles.css">    
-    <div>
+    
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>   
+        <script>
+          const setup = () => {
+            return {
+              loading: true,
+              isSidebarOpen: false,
+              toggleSidbarMenu() {
+                this.isSidebarOpen = !this.isSidebarOpen
+              },
+              isSettingsPanelOpen: false,
+              isSearchBoxOpen: false,
+            }
+          }
+        </script>
+        
+    </div>
+    <title>Document</title>
+</head>
+<body>
+<div>
         <div class="flex h-screen overflow-y-hidden bg-white" x-data="setup()" x-init="$refs.loading.classList.add('hidden')">
           <!-- Loading screen -->
           <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center text-white bg-black bg-opacity-50" style="backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)" >
@@ -287,7 +308,7 @@
                                                   <td class="px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
                                                       <div class="inline-flex items-center gap-x-3">
                                                           <input type="checkbox" name="seleccionados[]" value="<?php echo htmlspecialchars($row['telefono']); ?>" class="text-blue-500 rounded dark:bg-black dark:ring-offset-black-900 dark:border-black-700">
-                                                          <span class="text-black"><?php echo $row['distrito_elctoral'];?></span>
+                                                          <span class="text-black"><?php echo $row['distrito_electoral'];?></span>
                                                       </div>
                                                   </td>
                                                   <td class="px-4 py-4 text-medium text-black whitespace-nowrap"><?php echo $row['nombre']; ?></td>
@@ -330,26 +351,6 @@
             </div>
           </div>
         </div>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>   
-        <script>
-          const setup = () => {
-            return {
-              loading: true,
-              isSidebarOpen: false,
-              toggleSidbarMenu() {
-                this.isSidebarOpen = !this.isSidebarOpen
-              },
-              isSettingsPanelOpen: false,
-              isSearchBoxOpen: false,
-            }
-          }
-        </script>
-        
-    </div>
-    <title>Document</title>
-</head>
-<body>
 <script src="js/tagselector.js"></script>
 <script src="js/multiselect.js" ></script>
 </body>

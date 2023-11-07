@@ -39,13 +39,12 @@ if($stmt === false){
     die("Error en la preparacion de la consulta: " . $con->error);
 }
 
-$stmt->bindParam(1, $nombre);
-$stmt->bindParam(2, $email);
-$stmt->bindParam(3, $telefono);
-$stmt->bindParam(4, $username);
-$stmt->bindParam(5, $hash_password);
+$stmt->bindParam(1, $nombre, PDO::PARAM_STR);
+$stmt->bindParam(2, $email, PDO::PARAM_STR);
+$stmt->bindParam(3, $telefono, PDO::PARAM_STR);
+$stmt->bindParam(4, $username, PDO::PARAM_STR);
+$stmt->bindParam(5, $hash_password, PDO::PARAM_STR);
 $stmt->execute();
-
 
 if($stmt){
     echo "<script>";

@@ -16,6 +16,8 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
 $dotenv->load();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
+    $message = $_POST['content'];
+    $messageWithoutTags = html_entity_decode(strip_tags($message));
     $seleccionados = $_POST['seleccionados'];
 
     // Haz lo que necesites con los datos seleccionados
@@ -23,15 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
         echo "Correos: ". $phone . "<br>";    
         $sid    = $_ENV['SID'];
         $token  = $_ENV['TOKEN'];
-        $twilio = new Client($sid, $token);
-
-       
+        $twilio = new Client($sid, $token);      
     
-        $message = $twilio->messages
-          ->create("whatsapp:+521".$phone, // to
+        $message = $twilio->messages->create(
+          "whatsapp:+521".$phone, // to
             array(
               "from" => "whatsapp:+14155238886",
-              "body" => "Your appointment is coming up on July 21 at 3PM"
+              "body" => $messageWithoutTags              
             )
           );
 

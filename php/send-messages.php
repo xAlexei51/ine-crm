@@ -18,10 +18,11 @@ $dotenv->load();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
     $seleccionados = $_POST['seleccionados'];
-    // Haz lo que necesites con los datos seleccionados
+
     foreach ($seleccionados as $phone) {
-        echo "Telefonos: ". $phone . "<br>";            
-    }
+      //echo $phone;
+    }    
+    
 } else {
   echo "<script>";
   echo "Swal.fire({
@@ -105,15 +106,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
             </nav>
             <!-- Sidebar footer -->
             <div class="flex-shrink-0 p-2 border-t max-h-14">
-              <button
-                class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
+              <button class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
+                <a href="auth-logout.php">
                 <span>
                   <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
                 </span>
                 <span :class="{'lg:hidden': !isSidebarOpen}"> 
-                  <a href="php/auth-logout.php">Cerrar Sesión</a> </span>
+                  Cerrar Sesión </span>
+                  </a>
               </button>
             </div>
           </aside>    
@@ -181,8 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
                     </button>
                     <!-- green dot -->
                     <div class="absolute right-0 p-1 bg-green-400 rounded-full bottom-3 animate-ping"></div>
-                    <div class="absolute right-0 p-1 bg-green-400 border border-white rounded-full bottom-3"></div>
-    
+                    <div class="absolute right-0 p-1 bg-green-400 border border-white rounded-full bottom-3"></div>    
                     <!-- Dropdown card -->
                     <div @click.away="isOpen = false" x-show.transition.opacity="isOpen" class="absolute mt-3 transform -translate-x-full bg-white rounded-md shadow-lg min-w-max">
                       <div class="flex flex-col p-4 space-y-1 font-medium border-b">
@@ -212,37 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
               <div class="w-full p-6 bg-white rounded-lg shadow">
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Inicio / Envio de mensajes</h5>
-                </a>                                 
-                <div class="flex mb-5 text-lg">                 
-                                                                                                                 
-                </div>                                  
-                    <div id="divContent" style="display: none;" class="flex flex-wrap -mx-3 mb-8">
-                      <div x-data @tags-update="console.log('tags updated', $event.detail.tags)" data-tags='["Zapopan","45066"]' class=" m-3 mb-8">
-                        <div x-data="tagSelect()" x-init="init('parentEl')" @click.away="clearSearch()" @keydown.escape="clearSearch()">
-                          <div class="relative" @keydown.enter.prevent="addTag(textInput)">
-                            <span class="font-bold text-black mb-5"> ¿Por qué parametros quieres realizar la busqueda? Ejemplo: Zapopan</span>
-                            <input x-model="textInput" x-ref="textInput" @input="search($event.target.value)" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Ingresa los datos los que quires filtrar">
-                            <div :class="[open ? 'block' : 'hidden']">
-                              <div class="absolute z-40 left-0 mt-2 w-full">
-                                <div class="py-1 text-sm bg-white rounded shadow-lg border border-gray-300">
-                                  <a @click.prevent="addTag(textInput)" class="block py-1 px-5 cursor-pointer hover:bg-indigo-600 hover:text-white">Add tag "<span class="font-semibold" x-text="textInput"></span>"</a>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- selections -->
-                            <template x-for="(tag, index) in tags">
-                              <div class="bg-indigo-100 inline-flex items-center text-sm rounded mt-2 mr-1">
-                                <span class="ml-2 mr-1 leading-relaxed truncate max-w-xs" x-text="tag"></span>
-                                <button @click.prevent="removeTag(index)" class="w-6 h-8 inline-block align-middle text-gray-500 hover:text-gray-600 focus:outline-none">
-                                  <svg class="w-6 h-6 fill-current mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M15.78 14.36a1 1 0 0 1-1.42 1.42l-2.82-2.83-2.83 2.83a1 1 0 1 1-1.42-1.42l2.83-2.82L7.3 8.7a1 1 0 0 1 1.42-1.42l2.83 2.83 2.82-2.83a1 1 0 0 1 1.42 1.42l-2.83 2.83 2.83 2.82z"/></svg>
-                                </button>
-                              </div>
-                            </template>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
+                </a>                                                                                  
+                                      
                 </div>     
               <!-- Table see (https://tailwindui.com/components/application-ui/lists/tables) -->
             <h3 class="mt-6 text-xl"></h3>
@@ -250,9 +222,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div class="overflow-hidden rounded-md shadow-md">
-                            asddas                                                  
-                        </div>
+                        <div class="py-12">
+                          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                              <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                  <div class="p-6 bg-white border-b border-gray-200">
+                                      <form method="POST" action="catch-data.php">                                          
+                                          <div class="mb-8">
+                                              <label class="text-xl text-gray-600">Contenido del mensaje de WhatsApp <span class="text-red-500">*</span></label></br>
+                                              <textarea name="content" rows="5" placeholder="Escribe tu mensaje aqui..." class="focus:shadow-soft-primary-outline min-h-unset mt-9 text-sm leading-5.6 ease-soft block h-auto w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"></textarea>
+                                          </div>
+                                          <div class="flex p-1">                            
+                                              <button role="submit" class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" required>Enviar</button>
+                                          </div>
+                                          <div>
+                                          <?php 
+                                            foreach($seleccionados as $phones):
+                                          ?>
+                                          <input type="text" name="seleccionados[]" value="<?php echo $phones; ?>">
+                                          <?php 
+                                          endforeach;
+                                          ?>
+                                          </div>
+                                          
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>                                         
                     </div>
+                  </div>
                 </div>
              </div>
             </main>
@@ -261,25 +259,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
               <!-- Settings Panel Content -->
             </div>
           </div>
-        </div>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>   
-        <script>
-          const setup = () => {
-            return {
-              loading: true,
-              isSidebarOpen: false,
-              toggleSidbarMenu() {
-                this.isSidebarOpen = !this.isSidebarOpen
-              },
-              isSettingsPanelOpen: false,
-              isSearchBoxOpen: false,
-            }
-          }
-        </script>
-        
+        </div>                
     </div>
 <script src="js/tagselector.js"></script>
 <script src="js/multiselect.js" ></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script> 
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>   
+<script>
+  const setup = () => {
+    return {
+      loading: true,
+      isSidebarOpen: false,
+      toggleSidbarMenu() {
+        this.isSidebarOpen = !this.isSidebarOpen
+      },
+      isSettingsPanelOpen: false,
+      isSearchBoxOpen: false,
+    }
+  }
+</script>
 </body>
 </html>

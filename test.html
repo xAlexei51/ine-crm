@@ -5,87 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<style>
-  #tag-selector {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-}
-
-#tag-input {
-    margin-bottom: 8px;
-}
-
-#tag-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.tag {
-    background-color: #88888C;
-    color: #fff;
-    padding: 5px 8px;
-    margin: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-
-}
-
-</style>
 <body>  
-<form action="php/filter-data.php" method="post" id="tag-form">
-    <label for="tag-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Añadir parametros de busqueda: </label>
-    <input type="text" class="bg-white border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-200 dark:placeholder-gray-400 dark:text-black" id="tag-input" name="tag" placeholder="Ingresa un tag">
-    <button type="button" class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" id="add-tag">Añadir</button>
-    <div id="tag-list"></div>
-    <input type="hidden" id="tags-hidden" name="tags" value="">
-    <input type="submit" class="block w-full bg-emerald-700 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" value="Enviar tags">
-</form>
+    <form>
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" onchange="calcularEdad()">
+    
+        <label for="edad">Edad:</label>
+        <input type="text" id="edad" readonly>
+    </form>
+    
+    <script>
+    function calcularEdad() {
+        // Obtener la fecha de nacimiento del input
+        const fechaNacimiento = new Date(document.getElementById('fechaNacimiento').value);
+    
+        // Obtener la fecha actual
+        const fechaActual = new Date();
+    
+        // Calcular la diferencia en milisegundos
+        const diferencia = fechaActual - fechaNacimiento;
+    
+        // Convertir la diferencia a años
+        const edad = Math.floor(diferencia / (365.25 * 24 * 60 * 60 * 1000));
+    
+        // Mostrar la edad en el campo de entrada correspondiente
+        document.getElementById('edad').value = edad;
+    }
+    </script>
+    
 </body>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-
-document.addEventListener('DOMContentLoaded', function () {
-    const tagInput = document.getElementById('tag-input');
-    const addTagButton = document.getElementById('add-tag');
-    const tagList = document.getElementById('tag-list');
-    const tagForm = document.getElementById('tag-form');
-
-    addTagButton.addEventListener('click', function () {
-        const tagText = tagInput.value.trim();
-
-        if (tagText !== '') {
-            addTag(tagText);
-            tagInput.value = '';
-        }
-    });
-
-    function addTag(tagText) {
-        const tagElement = document.createElement('div');
-        tagElement.classList.add('tag');
-        tagElement.textContent = tagText;
-        tagElement.addEventListener('click', function () {
-            tagElement.remove();
-        });
-
-        tagList.appendChild(tagElement);
-    }
-
-    tagForm.addEventListener('submit', function (event) {
-        // Antes de enviar el formulario, actualiza un campo oculto con los tags
-        document.getElementById('tags-hidden').value = JSON.stringify(getTags());
-    });
-
-    function getTags() {
-        const tags = [];
-        const tagElements = document.querySelectorAll('.tag');
-        tagElements.forEach(function (element) {
-            tags.push(element.textContent);
-        });
-        return tags;
-    }
-});
-
-
-</script>
 </html>

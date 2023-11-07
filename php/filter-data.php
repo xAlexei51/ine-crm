@@ -298,7 +298,7 @@
                                     <td class="px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
                                         <div class="inline-flex items-center gap-x-3">
                                         <input type="checkbox" name="seleccionados[]" value="<?php echo htmlspecialchars($usuario['telefono']); ?>" class="text-blue-500 rounded dark:bg-black dark:ring-offset-black-900 dark:border-black-700">
-                                            <span class="text-black"><?php echo htmlspecialchars($usuario['distrito_elctoral']);?></span>
+                                            <span class="text-black"><?php echo htmlspecialchars($usuario['distrito_electoral']);?></span>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 text-medium text-black whitespace-nowrap"><?php echo htmlspecialchars($usuario['nombre']);?></td>
@@ -370,7 +370,7 @@ function filterData($con, $tags){
     $conditions = [];
 
     foreach($tags as $tag){
-        $conditions[] = "(colonia LIKE '%$tag%' OR municipio LIKE '%$tag%' OR genero LIKE '%$tag%' OR distrito_elctoral LIKE '%$tag%')";
+        $conditions[] = "(colonia LIKE '%$tag%' OR municipio LIKE '%$tag%' OR genero LIKE '%$tag%' OR distrito_electoral LIKE '%$tag%' OR edad LIKE '%$tag%')";
     }
 
     $sql .= implode(' AND ', $conditions);

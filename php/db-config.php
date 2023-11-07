@@ -37,8 +37,10 @@ class Militantes {
     private $apellido_materno;
     private $correo_electronico;
     private $genero;
+    private $edad;
     private $fecha_nacimiento;
     private $telefono;
+    private $codigo_postal;
     private $calle;
     private $numero_exterior;
     private $numero_interior;
@@ -58,9 +60,11 @@ class Militantes {
         $this->apellido_materno = $apellido_materno;
         $this->correo_electronico = $correo_electronico;
         $this->genero = $genero;
+        $this->edad = $edad;
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->telefono = $telefono;
         $this->calle = $calle;
+        $this->codigo_postal = $codigo_postal;
         $this->numero_exterior = $numero_exterior;
         $this->numero_interior = $numero_interior;
         $this->colonia = $colonia;
@@ -106,6 +110,10 @@ class Militantes {
         $this->calle = $calle;
     }
 
+    public function setCodigoPostal($codigo_postal){
+        $this->codigo_postal = $codigo_postal;
+    }
+
     public function setNumeroExterior($numero_exterior) {
         $this->numero_exterior = $numero_exterior;
     }
@@ -140,6 +148,10 @@ class Militantes {
 
     public function setMedioTransporte($medio_transporte) {
         $this->medio_transporte = $medio_transporte;
+    }
+
+    public function setEdad($edad){
+        $this->edad = $edad;
     }
 
     public function setNivelEstudios($nivel_de_estudios) {
