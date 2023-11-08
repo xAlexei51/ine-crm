@@ -30,7 +30,8 @@ $user->setTelefono($telefono);
 $user->setUsername($username);
 $user->setPassword($hash_password);
 
-$query = "INSERT INTO users (nombre, email, telefono, username, password) 
+try {
+    $query = "INSERT INTO users (nombre, email, telefono, username, password) 
 VALUES (?, ?, ?, ?, ?)";
 
 
@@ -65,6 +66,21 @@ if($stmt){
     echo "Swal.fire({
             title: 'Ups!',
             text: 'No se puedo agregar el usuario!',
+            icon: 'error',
+            confirmButtonText: '¡Entendido!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            // Redirige a otra página después de cerrar el cuadro de diálogo
+            window.location.href = '../adminUserList.php';
+            }
+        });";
+    echo "</script>";
+}
+} catch (Exception $th) {
+    echo "<script>";
+    echo "Swal.fire({
+            title: '¡Ups!',
+            text: 'Error: '".$th->getMessage().",
             icon: 'error',
             confirmButtonText: '¡Entendido!'
         }).then((result) => {

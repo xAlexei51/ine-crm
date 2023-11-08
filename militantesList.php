@@ -26,6 +26,25 @@
     <title>Document</title>
 </head>
 <body>
+<?php 
+  session_start();
+  if(!isset($_SESSION['username'])){
+    echo "<script>";
+    echo "Swal.fire({
+            title: '¡Ups!',
+            text: 'Parece que no has iniciado sesion',
+            icon: 'warning',
+            confirmButtonText: '¡Entendido!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            // Redirige a otra página después de cerrar el cuadro de diálogo
+            window.location.href = 'login.html';
+            }
+        });";
+    echo "</script>";
+  }
+  
+?>
 <div>
         <div class="flex h-screen overflow-y-hidden bg-white" x-data="setup()" x-init="$refs.loading.classList.add('hidden')">
           <!-- Loading screen -->
@@ -295,7 +314,7 @@
                                             
                                             require_once(__DIR__.'/php/db-connection.php');
 
-                                            $sql = "SELECT * FROM militantes";
+                                            $sql = 'SELECT * FROM militantes';
                                             $stmt = $con->prepare($sql);
                                             
                                             $stmt->execute();
@@ -331,15 +350,45 @@
                                                           </button>
                                                       </div>
                                                   </td>
-                                              </tr>
+                                              </tr>                                              
                                               <?php endforeach; 
                                               
                                               $stmt = null;
                                               $con = null;
                                               
-                                              ?>                                                                                                                    
-                                          </tbody>
-                                      </table>                                                                          
+                                              ?>   
+                                              <tr>
+                                              <td class="justify-center px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
+                                              <nav aria-label="Page navigation example">
+                                                <ul class="inline-flex -space-x-px text-base h-10">
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+                                                  </li>
+                                                  <li>
+                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                                  </li>
+                                                </ul>
+                                              </nav>
+                                                  </td>
+                                              </tr>                                                                                                             
+                                          </tbody>                                          
+                                      </table>
+                                                                                         
                                   </div>
                                 </div>
                               </div>

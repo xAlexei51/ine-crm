@@ -88,7 +88,8 @@ require_once "db-connection.php";
 $username = $_POST["username"];
 $password = $_POST["password"];
 
-$stmt = $con->prepare("SELECT password, nombre FROM users WHERE username = :username");
+try {
+  $stmt = $con->prepare("SELECT password, nombre FROM users WHERE username = :username");
 $stmt->bindParam(':username', $username);
 $stmt->execute();
 
@@ -116,9 +117,24 @@ if($usuario_bd && password_verify($password, $usuario_bd['password'])){
             }
         });";
     echo "</script>";
+  }
+} catch (Exception $th) {
+  echo "<script>";
+    echo "Swal.fire({
+            title: '¡Ups!',
+            text: 'Error: '".$th->getMessage().",
+            icon: 'error',
+            confirmButtonText: '¡Entendido!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            // Redirige a otra página después de cerrar el cuadro de diálogo
+            window.location.href = '../adminUserList.php';
+            }
+        });";
+    echo "</script>";
 }
 
-
-
+$stmt = null;
+$con = null;
 
 ?>

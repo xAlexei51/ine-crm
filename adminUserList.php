@@ -8,8 +8,8 @@
 </head>
 <body>
 <?php
-session_start();
 
+session_start();
 if(!isset($_SESSION['username'])){
   echo "<script>";
   echo "Swal.fire({
@@ -18,8 +18,7 @@ if(!isset($_SESSION['username'])){
           icon: 'warning',
           confirmButtonText: '¡Entendido!'
       }).then((result) => {
-          if (result.isConfirmed) {
-          // Redirige a otra página después de cerrar el cuadro de diálogo
+          if (result.isConfirmed) {          
           window.location.href = 'login.html';
           }
       });";
