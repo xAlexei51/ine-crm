@@ -264,7 +264,6 @@
                     </div>
                   </form>
                 </div> 
-    
               <!-- Table see (https://tailwindui.com/components/application-ui/lists/tables) -->
               <h3 class="mt-6 text-xl">Lista de militantes</h3>
               <div class="flex flex-col mt-6">

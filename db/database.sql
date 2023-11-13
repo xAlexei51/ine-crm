@@ -12,25 +12,37 @@ CREATE TABLE users (
 
 CREATE TABLE militantes (
     id INT NOT NULL AUTO_INCREMENT,
+    /*Identificacion*/
     nombre VARCHAR (255) NOT NULL,
     apellido_paterno VARCHAR (255) NOT NULL,
     apellido_materno VARCHAR (255) NOT NULL DEFAULT '',
-    correo_electronico VARCHAR (255) NOT NULL,
+    curp VARCHAR (255) NOT NULL,
     genero VARCHAR (55) NOT NULL,
     fecha_nacimiento VARCHAR (55) NOT NULL,
+    lugar_nacimiento VARCHAR (255) NOT NULL,
     edad VARCHAR (55) NOT NULL,
-    calle VARCHAR (255) NOT NULL,
-    telefono VARCHAR (55) NOT NULL,
+    clave_elector VARCHAR (255) NOT NULL,
+    folio_nacional VARCHAR (255) NOT NULL,
+    fecha_inscripcion_padron VARCHAR (255) NOT NULL,
+    correo_electronico VARCHAR (255) NOT NULL,   
+    telefono VARCHAR (55) NOT NULL,     
+    /*Domicilio*/    
+    calle VARCHAR (255) NOT NULL, 
+    colonia VARCHAR (255) NOT NULL,      
     codigo_postal VARCHAR (55) NOT NULL,
     numero_exterior VARCHAR (55) NOT NULL,
     numero_interior VARCHAR (55) NOT NULL DEFAULT '',
-    colonia VARCHAR (255) NOT NULL,    
-    municipio VARCHAR (255) NOT NULL,
+    /*Identificacion Electoral*/
+    entidad_federativa VARCHAR (255) NOT NULL DEFAULT 'Jalisco',  
     distrito_electoral VARCHAR (255) NOT NULL,
+    municipio VARCHAR (255) NOT NULL,
+    seccion VARCHAR (255) NOT NULL,,
+    localidad VARCHAR (255) NOT NULL,
+    /*Informacion adicional */    
     ocupacion VARCHAR (255) NOT NULL,
-    sector VARCHAR (255) NOT NULL,
-    medio_transporte VARCHAR (255) NOT NULL,
-    nivel_de_estudios VARCHAR (255) NOT NULL,
+    escolaridad VARCHAR (255) NOT NULL,
+    medio_transporte VARCHAR (255) NOT NULL, 
+    discapacidad VARCHAR (255) NOT NULL DEFAULT 'N/A',   
     salario_mensual VARCHAR (255) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

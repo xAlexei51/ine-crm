@@ -1,38 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Mapa de Jalisco</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-<body>  
-    <form>
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fechaNacimiento" onchange="calcularEdad()">
-    
-        <label for="edad">Edad:</label>
-        <input type="text" id="edad" readonly>
-    </form>
-    
-    <script>
-    function calcularEdad() {
-        // Obtener la fecha de nacimiento del input
-        const fechaNacimiento = new Date(document.getElementById('fechaNacimiento').value);
-    
-        // Obtener la fecha actual
-        const fechaActual = new Date();
-    
-        // Calcular la diferencia en milisegundos
-        const diferencia = fechaActual - fechaNacimiento;
-    
-        // Convertir la diferencia a años
-        const edad = Math.floor(diferencia / (365.25 * 24 * 60 * 60 * 1000));
-    
-        // Mostrar la edad en el campo de entrada correspondiente
-        document.getElementById('edad').value = edad;
-    }
-    </script>
-    
+<body>
+
 </body>
-<script src="https://cdn.tailwindcss.com"></script>
 </html>

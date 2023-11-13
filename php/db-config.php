@@ -1,7 +1,7 @@
 <?php 
 
 class Conexion {
-    private $servername ="localhost";
+    private $servername = "localhost";
     private $username = "root";
     private $password = "";
     private $dbname = "ine_database";
