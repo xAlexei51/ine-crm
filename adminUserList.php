@@ -94,18 +94,18 @@ if(!isset($_SESSION['username'])){
             <div class="flex-shrink-0 p-2 border-t max-h-14">
               <button
                 class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
+                <a href="php/auth-logout.php">
                 <span>
-                  <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                  <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
                 </span>
                 <span :class="{'lg:hidden': !isSidebarOpen}"> 
-                  <a href="php/auth-logout.php">Cerrar Sesión</a>                    
-                </span>
+                  Cerrar Sesión</span>
+                </a>
               </button>
             </div>
-          </aside>
-    
+          </aside>    
           <div class="flex flex-col flex-1 h-full overflow-hidden">
             <!-- Navbar -->
             <header class="flex-shrink-0 border-b">
@@ -119,8 +119,7 @@ if(!isset($_SESSION['username'])){
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                     </svg>
                   </button>
-                </div>
-    
+                </div>    
                 <!-- Mobile search box -->
                 <div x-show.transition="isSearchBoxOpen" class="fixed inset-0 z-10 bg-black bg-opacity-20" style="backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)">
                   <div @click.away="isSearchBoxOpen = false" class="absolute inset-x-0 flex items-center justify-between p-2 bg-white shadow-md">
@@ -369,7 +368,9 @@ if(!isset($_SESSION['username'])){
 
                               foreach ($result as $row):
                               ?>
-                                <tr class="dark:hover:bg-gray-200">
+                              
+                                <tr class="dark:hover:bg-gray-200 cursor-pointer" onclick="window.location.href='php/user-details.php?id=<?php echo $row['id']?>'">
+                                <a href="hola.html">
                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                         <div class="inline-flex items-center gap-x-3">
                                             <input type="checkbox" class="text-blue-500 rounded dark:bg-black dark:ring-offset-gray-900 dark:border-gray-700">
@@ -397,7 +398,9 @@ if(!isset($_SESSION['username'])){
                                             </button>
                                         </div>                                                                                                                                                               
                                     </td>
+                                    </a>
                                 </tr>
+                               
                                 <?php endforeach; 
                                 
                                 $stmt = null;

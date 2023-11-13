@@ -14,8 +14,6 @@
 require_once(__DIR__.'/../php/db-config.php');
 require_once "db-connection.php";
 
-$user = new Users();
-
 $nombre = $_POST['nombre'];
 $email = $_POST['email'];
 $telefono = $_POST['telefono'];
@@ -24,28 +22,19 @@ $password = $_POST['password'];
 
 $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
-$user->setNombre($nombre);
-$user->setEmail($email);
-$user->setTelefono($telefono);
-$user->setUsername($username);
-$user->setPassword($hash_password);
-
 try {
-    $query = "INSERT INTO users (nombre, email, telefono, username, password) 
-VALUES (?, ?, ?, ?, ?)";
 
-
-$stmt = $con->prepare($query);
-if($stmt === false){
-    die("Error en la preparacion de la consulta: " . $con->error);
-}
-
-$stmt->bindParam(1, $nombre, PDO::PARAM_STR);
-$stmt->bindParam(2, $email, PDO::PARAM_STR);
-$stmt->bindParam(3, $telefono, PDO::PARAM_STR);
-$stmt->bindParam(4, $username, PDO::PARAM_STR);
-$stmt->bindParam(5, $hash_password, PDO::PARAM_STR);
-$stmt->execute();
+    $queryData = [
+        'nombre' => $nombre,
+        'email' => $email,
+        'telefono' => $telefono,
+        'username' => $username,
+        'password' => $password
+    ];
+    
+    $query = "INSERT INTO users (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
+    $stmt = $con->prepare($query);
+    $stmt->execute($queryData);
 
 if($stmt){
     echo "<script>";

@@ -273,7 +273,7 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-200  ">
                             <thead class="bg-white dark:bg-gray-300">
                                 <tr>
-                                  <th scope="col" class="py-3.5 px-4 text-medium font-normal text-left  text-black">
+                                  <th scope="col" class="py-3.5 px-4 text-medium font-normal text-left text-black">
                                       <div class="flex items-center gap-x-3">
                                           <input type="checkbox" id="seleccionar-todos" class="text-blue-500 rounded dark:bg-white dark:ring-offset-gray-900">
                                               <button class="flex items-center gap-x-2">
@@ -322,7 +322,7 @@
 
                                             foreach ($result as $row):                              
                                             ?>
-                                              <tr class="dark:hover:bg-gray-200" >
+                                              <tr class="dark:hover:bg-gray-200 cursor-pointer" onclick="window.location.href='php/user-details.php?id=<?php echo $row['id'] ?>'">
                                                   <td class="px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
                                                       <div class="inline-flex items-center gap-x-3">
                                                           <input type="checkbox" name="seleccionados[]" value="<?php echo htmlspecialchars($row['telefono']); ?>" class="text-blue-500 rounded dark:bg-black dark:ring-offset-black-900 dark:border-black-700">
@@ -355,39 +355,9 @@
                                               $stmt = null;
                                               $con = null;
                                               
-                                              ?>   
-                                              <tr>
-                                              <td class="justify-center px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
-                                              <nav aria-label="Page navigation example">
-                                                <ul class="inline-flex -space-x-px text-base h-10">
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                                                  </li>
-                                                  <li>
-                                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                                                  </li>
-                                                </ul>
-                                              </nav>
-                                                  </td>
-                                              </tr>                                                                                                             
+                                              ?>                                                                                                                                                          
                                           </tbody>                                          
-                                      </table>
-                                                                                         
+                                      </table>                                                                                         
                                   </div>
                                 </div>
                               </div>

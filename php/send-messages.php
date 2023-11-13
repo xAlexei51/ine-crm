@@ -106,7 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
             </nav>
             <!-- Sidebar footer -->
             <div class="flex-shrink-0 p-2 border-t max-h-14">
-              <button class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
+              <button
+                class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
                 <a href="auth-logout.php">
                 <span>
                   <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
@@ -114,8 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['seleccionados'])) {
                   </svg>
                 </span>
                 <span :class="{'lg:hidden': !isSidebarOpen}"> 
-                  Cerrar Sesión </span>
-                  </a>
+                  Cerrar Sesión</span>
+                </a>
               </button>
             </div>
           </aside>    

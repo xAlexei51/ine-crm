@@ -10,7 +10,6 @@
     
 <?php 
 
-require_once(__DIR__.'/../php/db-config.php');
 require_once "db-connection.php";
 
 session_start();
@@ -30,100 +29,78 @@ if(!isset($_SESSION['username'])){
     echo "</script>";
   }
 
+#Identificacion 
 $nombre = strtoupper($_POST['nombre']);
 $apellido_paterno = strtoupper($_POST['apellido_paterno']);
 $apellido_materno = strtoupper($_POST['apellido_materno']);
-$email = strtoupper($_POST['email']);
+$curp = strtoupper($_POST['curp']);
 $genero = strtoupper($_POST['genero']);
 $fecha_nacimiento = strtoupper($_POST['fecha_nacimiento']);
+$lugar_nacimiento = strtoupper($_POST['lugar_nacimiento']);
 $edad = strtoupper($_POST['edad']);
-$calle = strtoupper($_POST['calle']);
+$clave_elector = $_POST['clave_elector'];
+$folio_nacional = $_POST['folio_nacional'];
+$fecha_inscripcion_padron = $_POST['fecha_padron'];
+$email = strtoupper($_POST['email']);
 $telefono = strtoupper($_POST['telefono']);
+#Domicilio del militante
+$calle = strtoupper($_POST['calle']);
+$colonia = strtoupper($_POST['colonia']);
 $codigo_postal = strtoupper($_POST['codigo_postal']);
 $numero_exterior = strtoupper($_POST['numero_exterior']);
 $numero_interior = strtoupper($_POST['numero_interior']);
-$colonia = strtoupper($_POST['colonia']);
-$municipio = strtoupper($_POST['municipio']);
+#Identificacion electoral
+$entidad_federativa = $_POST['entidad_federativa'];
 $distrito_electoral = $_POST['distrito_electoral'];
-$ocupacion = strtoupper($_POST['ocupacion']);
+$municipio = strtoupper($_POST['municipio']);
 $seccion = strtoupper($_POST['seccion']);
+$localidad = strtoupper($_POST['localidad']);
+#Informacion adicional
+$ocupacion = strtoupper($_POST['ocupacion']);
+$escolaridad = strtoupper($_POST['escolardiad']);
 $medio_transporte = strtoupper($_POST['medio_transporte']);
-$nivel_de_estudios = strtoupper($_POST['nivel_de_estudios']);
+$discpacidad = $_POST['discapacidad'];
 $salario_mensual = strtoupper($_POST['salario_mensual']);
 
-
-$militante = new Militantes();
-
-$militante->setNombre($nombre);
-$militante->setApellidoPaterno($apellido_paterno);
-$militante->setApellidoMaterno($apellido_materno);
-$militante->setCorreoElectronico($email);
-$militante->setGenero($genero);
-$militante->setFechaNacimiento($fecha_nacimiento);
-$militante->setEdad($edad);
-$militante->setCalle($calle);
-$militante->setTelefono($calle);
-$militante->setCodigoPostal($codigo_postal);
-$militante->setNumeroExterior($numero_exterior);
-$militante->setNumeroInterior($numero_interior);
-$militante->setColonia($colonia);
-$militante->setMunicipio($municipio);
-$militante->setDistritoElectoral($distrito_electoral);
-$militante->setOcupacion($ocupacion);
-$militante->setSector($seccion);
-$militante->setMedioTransporte($medio_transporte);
-$militante->setNivelEstudios($nivel_de_estudios);
-$militante->setSalarioPromedio($salario_mensual);
-
 try {
-    $query = 'INSERT INTO militantes (
-        nombre,
-        apellido_paterno,
-        apellido_materno,
-        correo_electronico,
-        genero, 
-        fecha_nacimiento,
-        edad, 
-        calle, 
-        telefono,
-        codigo_postal,
-        numero_exterior,
-        numero_interior,
-        colonia, 
-        municipio, 
-        distrito_electoral,
-        ocupacion, 
-        sector,
-        medio_transporte,
-        nivel_de_estudios,
-        salario_mensual) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    $queryData = [
+        'nombre' => $nombre,
+        'apellido_paterno' => $apellido_paterno,
+        'apellido_materno' => $apellido_materno,
+        'curp' => $curp,
+        'genero' => $genero,
+        'fecha_nacimiento' => $fecha_nacimiento,
+        'lugar_nacimiento' => $lugar_nacimiento,
+        'edad' => $edad,
+        'clave_elector' => $clave_elector,
+        'folio_nacional' => $folio_nacional,
+        'fecha_inscripcion_padron' => $fecha_inscripcion_padron,
+        'correo_electronico' => $email,
+        'telefono' => $telefono,
+        'calle' => $calle,
+        'colonia' => $calle,
+        'codigo_postal' => $codigo_postal,
+        'numero_exterior' => $numero_exterior,
+        'numero_interior' => $numero_interior,
+        'entidad_federativa' => $entidad_federativa,
+        'distrito_electoral' => $distrito_electoral,
+        'municipio' => $municipio,
+        'seccion' => $seccion,
+        'localidad' => $localidad,
+        'ocupacion' => $ocupacion,
+        'escolaridad' => $escolaridad,
+        'medio_transporte' => $medio_transporte,
+        'discapacidad' => $medio_transporte,
+        'salario_mensual' => $salario_mensual
+    ];
     
+    $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
     $stmt = $con->prepare($query);
     if($stmt === false){
         die('Error en la preparacion de la consulta: ' . $con->error);
     }
     
-    $stmt->bindParam(1, $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(2, $apellido_paterno, PDO::PARAM_STR);
-    $stmt->bindParam(3, $apellido_materno, PDO::PARAM_STR);
-    $stmt->bindParam(4, $email, PDO::PARAM_STR);
-    $stmt->bindParam(5, $genero, PDO::PARAM_STR);
-    $stmt->bindParam(6, $fecha_nacimiento, PDO::PARAM_STR);
-    $stmt->bindParam(7, $edad, PDO::PARAM_STR);
-    $stmt->bindParam(8, $calle, PDO::PARAM_STR);
-    $stmt->bindParam(9, $telefono, PDO::PARAM_STR);
-    $stmt->bindParam(10, $codigo_postal, PDO::PARAM_STR);
-    $stmt->bindParam(11, $numero_exterior, PDO::PARAM_STR);
-    $stmt->bindParam(12, $numero_interior, PDO::PARAM_STR);
-    $stmt->bindParam(13, $colonia, PDO::PARAM_STR);
-    $stmt->bindParam(14, $municipio, PDO::PARAM_STR);
-    $stmt->bindParam(15, $distrito_electoral, PDO::PARAM_STR);
-    $stmt->bindParam(16, $ocupacion, PDO::PARAM_STR);
-    $stmt->bindParam(17, $seccion, PDO::PARAM_STR);
-    $stmt->bindParam(18, $medio_transporte, PDO::PARAM_STR);
-    $stmt->bindParam(19, $nivel_de_estudios, PDO::PARAM_STR);
-    $stmt->bindParam(20, $salario_mensual, PDO::PARAM_STR);
-    $stmt->execute();
+    $stmt->execute($queryData);
     
     if($stmt){
         echo "<script>";
