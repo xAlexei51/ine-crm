@@ -63,51 +63,15 @@ $discpacidad = $_POST['discapacidad'];
 $salario_mensual = strtoupper($_POST['salario_mensual']);
 
 try {
-    $queryData = [
-        'nombre' => $nombre,
-        'apellido_paterno' => $apellido_paterno,
-        'apellido_materno' => $apellido_materno,
-        'curp' => $curp,
-        'genero' => $genero,
-        'fecha_nacimiento' => $fecha_nacimiento,
-        'lugar_nacimiento' => $lugar_nacimiento,
-        'edad' => $edad,
-        'clave_elector' => $clave_elector,
-        'folio_nacional' => $folio_nacional,
-        'fecha_inscripcion_padron' => $fecha_inscripcion_padron,
-        'correo_electronico' => $email,
-        'telefono' => $telefono,
-        'calle' => $calle,
-        'colonia' => $calle,
-        'codigo_postal' => $codigo_postal,
-        'numero_exterior' => $numero_exterior,
-        'numero_interior' => $numero_interior,
-        'entidad_federativa' => $entidad_federativa,
-        'distrito_electoral' => $distrito_electoral,
-        'municipio' => $municipio,
-        'seccion' => $seccion,
-        'localidad' => $localidad,
-        'ocupacion' => $ocupacion,
-        'escolaridad' => $escolaridad,
-        'medio_transporte' => $medio_transporte,
-        'discapacidad' => $medio_transporte,
-        'salario_mensual' => $salario_mensual
-    ];
-    
-    $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
-    $stmt = $con->prepare($query);
-    if($stmt === false){
-        die('Error en la preparacion de la consulta: ' . $con->error);
-    }
-    
-    $stmt->execute($queryData);
-    
-    if($stmt){
+    $userExists = $con->query("SELECT COUNT(*) AS count FROM militantes WHERE curp = ?");
+    $count = $userExists->fetchObject()->count;        
+
+    if($count > 0){
         echo "<script>";
         echo "Swal.fire({
-                title: '¡Exito!',
-                text: 'Registro guardado!',
-                icon: 'success',
+                title: 'Ups!',
+                text: 'Parece que ya te has registrado antes!',
+                icon: 'error',
                 confirmButtonText: '¡Entendido!'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -117,20 +81,75 @@ try {
             });";
         echo "</script>";
     }else {
-        echo "<script>";
-        echo "Swal.fire({
-                title: 'Ups!',
-                text: 'No se puedo guardar el registro, intenta de nuevo mas tarde!',
-                icon: 'error',
-                confirmButtonText: '¡Entendido!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                // Redirige a otra página después de cerrar el cuadro de diálogo
-                window.location.href = '../adminUserList.php';
-                }
-            });";
-        echo "</script>";
-    }
+        $queryData = [
+            'nombre' => $nombre,
+            'apellido_paterno' => $apellido_paterno,
+            'apellido_materno' => $apellido_materno,
+            'curp' => $curp,
+            'genero' => $genero,
+            'fecha_nacimiento' => $fecha_nacimiento,
+            'lugar_nacimiento' => $lugar_nacimiento,
+            'edad' => $edad,
+            'clave_elector' => $clave_elector,
+            'folio_nacional' => $folio_nacional,
+            'fecha_inscripcion_padron' => $fecha_inscripcion_padron,
+            'correo_electronico' => $email,
+            'telefono' => $telefono,
+            'calle' => $calle,
+            'colonia' => $calle,
+            'codigo_postal' => $codigo_postal,
+            'numero_exterior' => $numero_exterior,
+            'numero_interior' => $numero_interior,
+            'entidad_federativa' => $entidad_federativa,
+            'distrito_electoral' => $distrito_electoral,
+            'municipio' => $municipio,
+            'seccion' => $seccion,
+            'localidad' => $localidad,
+            'ocupacion' => $ocupacion,
+            'escolaridad' => $escolaridad,
+            'medio_transporte' => $medio_transporte,
+            'discapacidad' => $medio_transporte,
+            'salario_mensual' => $salario_mensual
+        ];
+        
+        $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
+        $stmt = $con->prepare($query);
+        if($stmt === false){
+            die('Error en la preparacion de la consulta: ' . $con->error);
+        }
+        
+        $stmt->execute($queryData);
+        
+        if($stmt){
+            echo "<script>";
+            echo "Swal.fire({
+                    title: '¡Exito!',
+                    text: 'Registro guardado!',
+                    icon: 'success',
+                    confirmButtonText: '¡Entendido!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    // Redirige a otra página después de cerrar el cuadro de diálogo
+                    window.location.href = '../index.html';
+                    }
+                });";
+            echo "</script>";
+        }else {
+            echo "<script>";
+            echo "Swal.fire({
+                    title: 'Ups!',
+                    text: 'No se puedo guardar el registro, intenta de nuevo mas tarde!',
+                    icon: 'error',
+                    confirmButtonText: '¡Entendido!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    // Redirige a otra página después de cerrar el cuadro de diálogo
+                    window.location.href = '../adminUserList.php';
+                    }
+                });";
+            echo "</script>";
+        }
+    }   
 } catch (Exeception $th) {
     echo "<script>";
     echo "Swal.fire({

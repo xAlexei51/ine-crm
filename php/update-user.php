@@ -16,9 +16,6 @@ require_once "db-connection.php";
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-
-$user = new Users();
-
 $nombre = $_POST['nombre'];
 $email = $_POST['email'];
 $telefono = $_POST['telefono'];
@@ -27,14 +24,13 @@ $password = $_POST['password'];
 
 $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
-$user->setNombre($nombre);
-$user->setEmail($email);
-$user->setTelefono($telefono);
-$user->setUsername($username);
-$user->setPassword($hash_password);
-
 try {
-    $query = "UPDATE users WHERE id = ?";
+    $query = "UPDATE users 
+    nombre = ?,
+    email = ?,
+    telefono = ?,
+    username = ?,
+    password = ? WHERE id = ?";
 
     $stmt = $con->prepare($query);
     if($stmt === false){
@@ -46,6 +42,7 @@ try {
     $stmt->bindParam(3, $telefono, PDO::PARAM_STR);
     $stmt->bindParam(4, $username, PDO::PARAM_STR);
     $stmt->bindParam(5, $hash_password, PDO::PARAM_STR);
+    $stmt->bindParam(6, $id, PDO::PARAM_INT);
     $stmt->execute();
 
     if($stmt){

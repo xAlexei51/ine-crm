@@ -29,7 +29,7 @@ try {
         'email' => $email,
         'telefono' => $telefono,
         'username' => $username,
-        'password' => $password
+        'password' => $hash_password
     ];
     
     $query = "INSERT INTO users (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";

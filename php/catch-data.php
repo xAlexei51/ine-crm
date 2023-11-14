@@ -30,8 +30,9 @@ if(!isset($_SESSION['username'])){
   echo "</script>";
 }
 
-use Twilio\Rest\Client;
+
 require_once '../vendor/autoload.php';
+use Twilio\Rest\Client;
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '../.env');
 $dotenv->load();
 
@@ -43,19 +44,20 @@ try {
 
     // Haz lo que necesites con los datos seleccionados
     foreach ($seleccionados as $phone) {
-        echo "Correos: ". $phone . "<br>";    
-        $sid    = $_ENV['SID'];
-        $token  = $_ENV['TOKEN'];
-        $twilio = new Client($sid, $token);      
+        echo "Telefonos: ". $phone . "<br>";            
     
-        $message = $twilio->messages->create(
-          "whatsapp:+521".$phone, // to
+        $sid    = "AC57cd92eb3409bcc61845d557f497789a";
+        $token  = "a8e0998412c1ecf990de3fe21de6fd07";
+        $twilio = new Client($sid, $token);
+    
+        $message = $twilio->messages
+          ->create("whatsapp:+521".$phone, // to
             array(
               "from" => "whatsapp:+14155238886",
-              "body" => $messageWithoutTags              
+              "body" => $messageWithoutTags
             )
           );
-
+    
     print($message->sid);
     }
 } else {
