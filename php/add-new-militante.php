@@ -30,57 +30,39 @@ if(!isset($_SESSION['username'])){
   }
 
 #Identificacion 
-$nombre = strtoupper($_POST['nombre']);
-$apellido_paterno = strtoupper($_POST['apellido_paterno']);
-$apellido_materno = strtoupper($_POST['apellido_materno']);
-$curp = strtoupper($_POST['curp']);
-$genero = strtoupper($_POST['genero']);
-$fecha_nacimiento = strtoupper($_POST['fecha_nacimiento']);
-$lugar_nacimiento = strtoupper($_POST['lugar_nacimiento']);
-$edad = strtoupper($_POST['edad']);
+$nombre = ($_POST['nombre']);
+$apellido_paterno = ($_POST['apellido_paterno']);
+$apellido_materno = ($_POST['apellido_materno']);
+$curp = ($_POST['curp']);
+$genero = ($_POST['genero']);
+$fecha_nacimiento = ($_POST['fecha_nacimiento']);
+$lugar_nacimiento = ($_POST['lugar_nacimiento']);
+$edad = ($_POST['edad']);
 $clave_elector = $_POST['clave_elector'];
 $folio_nacional = $_POST['folio_nacional'];
 $fecha_inscripcion_padron = $_POST['fecha_padron'];
-$email = strtoupper($_POST['email']);
-$telefono = strtoupper($_POST['telefono']);
+$email = ($_POST['email']);
+$telefono = ($_POST['telefono']);
 #Domicilio del militante
-$calle = strtoupper($_POST['calle']);
-$colonia = strtoupper($_POST['colonia']);
-$codigo_postal = strtoupper($_POST['codigo_postal']);
-$numero_exterior = strtoupper($_POST['numero_exterior']);
-$numero_interior = strtoupper($_POST['numero_interior']);
+$calle = ($_POST['calle']);
+$colonia = ($_POST['colonia']);
+$codigo_postal = ($_POST['codigo_postal']);
+$numero_exterior = ($_POST['numero_exterior']);
+$numero_interior = ($_POST['numero_interior']);
 #Identificacion electoral
 $entidad_federativa = $_POST['entidad_federativa'];
 $distrito_electoral = $_POST['distrito_electoral'];
-$municipio = strtoupper($_POST['municipio']);
-$seccion = strtoupper($_POST['seccion']);
-$localidad = strtoupper($_POST['localidad']);
+$municipio = ($_POST['municipio']);
+$seccion = ($_POST['seccion']);
+$localidad = ($_POST['localidad']);
 #Informacion adicional
-$ocupacion = strtoupper($_POST['ocupacion']);
-$escolaridad = strtoupper($_POST['escolardiad']);
-$medio_transporte = strtoupper($_POST['medio_transporte']);
-$discpacidad = $_POST['discapacidad'];
-$salario_mensual = strtoupper($_POST['salario_mensual']);
+$ocupacion = ($_POST['ocupacion']);
+$escolaridad = ($_POST['escolaridad']);
+$medio_transporte = ($_POST['medio_transporte']);
+$discapacidad = ($_POST['discapacidad']);
+$salario_mensual = ($_POST['salario_mensual']);
 
-try {
-    $userExists = $con->query("SELECT COUNT(*) AS count FROM militantes WHERE curp = ?");
-    $count = $userExists->fetchObject()->count;        
-
-    if($count > 0){
-        echo "<script>";
-        echo "Swal.fire({
-                title: 'Ups!',
-                text: 'Parece que ya te has registrado antes!',
-                icon: 'error',
-                confirmButtonText: '¡Entendido!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                // Redirige a otra página después de cerrar el cuadro de diálogo
-                window.location.href = '../index.html';
-                }
-            });";
-        echo "</script>";
-    }else {
+try {     
         $queryData = [
             'nombre' => $nombre,
             'apellido_paterno' => $apellido_paterno,
@@ -108,8 +90,8 @@ try {
             'ocupacion' => $ocupacion,
             'escolaridad' => $escolaridad,
             'medio_transporte' => $medio_transporte,
-            'discapacidad' => $medio_transporte,
-            'salario_mensual' => $salario_mensual
+            'discapacidad' => $discapacidad,
+            'salario_mensual' => $salario_mensual            
         ];
         
         $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
@@ -149,7 +131,7 @@ try {
                 });";
             echo "</script>";
         }
-    }   
+      
 } catch (Exeception $th) {
     echo "<script>";
     echo "Swal.fire({

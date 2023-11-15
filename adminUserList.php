@@ -112,12 +112,16 @@
                                             <td class="px-4 py-4 text-medium text-black whitespace-nowrap"><?php echo $row['username']; ?></td>
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-6">
-                                                    <button id="updateUser" class="block dark:hover:bg-gray-700 w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">
-                                                        <a href="php/update-user-page.php?id=<?php echo $row['id'] ?>">Editar</a>
-                                                    </button>
-                                                    <button class="block w-full bg-red-700 dark:hover:bg-red-500 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" id="deleteButton">
-                                                        <a href="php/delete-user.php?id=<?php echo $row['id'] ?>">Eliminar</a>
-                                                    </button>
+                                                    <a href="php/update-user-page.php?id=<?php echo $row['id'] ?>">
+                                                        <button id="updateUser" class="block dark:hover:bg-gray-700 w-32 bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">
+                                                            Editar
+                                                        </button>
+                                                    </a>
+                                                    <a href="php/delete-user.php?id=<?php echo $row['id'] ?>">
+                                                        <button class="block w-32 bg-red-700 dark:hover:bg-red-500 mt-4 py-2 rounded text-white font-semibold mb-2 px-4" id="deleteButton">
+                                                            Eliminar
+                                                        </button>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </a>

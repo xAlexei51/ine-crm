@@ -1,3 +1,6 @@
+/* Tu código personalizado va aquí */
+
+
 .tag {
     display: inline-block;;
     color: #000000;
@@ -8,7 +11,7 @@
     margin-bottom:5px;
 }
 
-#cosa-negra{;
+#cosa-negra{
     @media (min-width: 0px) and (max-width: 768px) {
         display: none;
     }

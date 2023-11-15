@@ -16,6 +16,7 @@ require_once "db-connection.php";
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+
 $nombre = $_POST['nombre'];
 $email = $_POST['email'];
 $telefono = $_POST['telefono'];
@@ -26,30 +27,26 @@ $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
 try {
     $query = "UPDATE users 
-    nombre = ?,
-    email = ?,
-    telefono = ?,
-    username = ?,
+    SET nombre = ?, 
+    email = ?, 
+    telefono = ?, 
+    username = ?, 
     password = ? WHERE id = ?";
 
     $stmt = $con->prepare($query);
-    if($stmt === false){
-        die("Error en la preparacion de la consulta: " . $con->error);
-    }
-
-    $stmt->bindParam(1, $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(2, $email, PDO::PARAM_STR);
-    $stmt->bindParam(3, $telefono, PDO::PARAM_STR);
-    $stmt->bindParam(4, $username, PDO::PARAM_STR);
-    $stmt->bindParam(5, $hash_password, PDO::PARAM_STR);
-    $stmt->bindParam(6, $id, PDO::PARAM_INT);
+    $stmt->bindParam(1, $nombre);
+    $stmt->bindParam(2, $email);
+    $stmt->bindParam(3, $telefono);
+    $stmt->bindParam(4, $username);
+    $stmt->bindParam(5, $hash_password);
+    $stmt->bindParam(6, $id);
     $stmt->execute();
 
     if($stmt){
         echo "<script>";
         echo "Swal.fire({
                 title: '¡Exito!',
-                text: 'Usuario agregado!',
+                text: 'Datos actualizados!',
                 icon: 'success',
                 confirmButtonText: '¡Entendido!'
             }).then((result) => {
@@ -74,7 +71,7 @@ try {
             });";
         echo "</script>";
     }
-} catch (Exception $th) {
+} catch (\Throwable $th) {
     echo "<script>";
     echo "Swal.fire({
             title: '¡Ups!',
@@ -90,8 +87,8 @@ try {
     echo "</script>";
 }
 
-$stmt = null;
-$con = null;
+
+
 
 ?>
 

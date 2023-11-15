@@ -34,13 +34,8 @@
         <!-- Start Content -->
         <div class="max-w-full p-6 bg-white rounded-lg shadow">
             <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Inicio / Adminsitradores</h5>
-            </a>
-            <div class="px- mb-6 md:mb-0">
-                <button id="openDialog" class=" bg-gray-900 dark:hover:bg-gray-700 py-2 rounded text-white font-semibold mb-2 px-4">
-                    Nuevo usuario
-                </button>
-            </div>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Inicio / Adminsitradores / Editar</h5>
+            </a>            
         </div>        
 
         <div class="flex flex-col mt-6 py-3 px-3">
@@ -61,7 +56,7 @@
                                                                                                   
                                 ?>
                                                                     
-                            <form action="update-user.php" method="post">
+                            <form action="update-user.php?id=<?php echo $row['id']?>" method="post">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2 px-3" for="grid-colonia">
                                     Editar Informacion
                                 </label>
@@ -71,7 +66,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Nombre
                                         </label>
-                                        <input name="nombre" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="John Doe">
+                                        <input name="nombre" value="<?php echo $row['nombre'];?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="John Doe">
                                     </div>
                                 </div>
                                 <!-- Correo electronico y telefono -->
@@ -80,13 +75,13 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
                                             Correo electronico
                                         </label>
-                                        <input name="email" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="example@gmail.com">
+                                        <input name="email" value="<?php echo $row['email'];?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="example@gmail.com">
                                     </div>
                                     <div class="w-full md:w-1/2 px-3 mb-3 md:mb-0">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-telefono">
                                             Telefono
                                         </label>
-                                        <input name="telefono" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-telefono" type="text" placeholder="+523333333333" maxlength="10">
+                                        <input name="telefono" value="<?php echo $row['telefono'];?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-telefono" type="text" placeholder="+523333333333" maxlength="10">
                                     </div>
                                 </div>
                                 <!-- Usuario -->
@@ -95,7 +90,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Usuario
                                         </label>
-                                        <input name="username" value="" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="Ejemplo: john_2025">
+                                        <input name="username" value="<?php echo $row['username'];?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="Ejemplo: john_2025">
                                     </div>
                                 </div>
                                 <!-- Password -->
@@ -104,7 +99,7 @@
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                             Password
                                         </label>
-                                        <input name="password" value="<?php echo htmlspecialchars($row['password']); ?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="password" placeholder="Contraseña">
+                                        <input name="password" value="<?php echo $row['password'];?>" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="password" placeholder="Contraseña">
                                     </div>
                                 </div>                
                                 
