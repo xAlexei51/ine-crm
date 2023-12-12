@@ -2,11 +2,11 @@ CREATE DATABASE ine_database;
 
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT, 
-    nombre NOT NULL (100) NOT NULL,
+    nombre VARCHAR (100) NOT NULL,
     email VARCHAR (100) NOT NULL,
     telefono varchar (55) NOT NULL, 
     username VARCHAR (55) NOT NULL,
-    password VARCHAR (100) NOT NULL ,
+    password VARCHAR (100) NOT NULL,
     PRIMARY KEY (id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

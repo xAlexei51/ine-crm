@@ -23,7 +23,7 @@
         </script>
         
     </div>
-    <title>Document</title>
+    <title>Militantes</title>
 </head>
 <body>
 <?php 
@@ -136,7 +136,7 @@
                                                   </th>   
                                                   <th scope="col" class="relative py-3.5 px-4">                                      
                                                   <button id="enviarFormulario" class="block w-full bg-slate-800 mt-4 py-2 rounded text-white font-semibold mb-2 px-4">                                      
-                                                      Enviar correos
+                                                      Enviar Mensajes
                                                   </button>  
                                                   </th>
                                               </tr>
@@ -178,19 +178,19 @@
                                                   <td class="px-4 py-4 text-medium font-medium text-black-700 dark:text-black-200 whitespace-nowrap">
                                                       <div class="inline-flex items-center gap-x-3">
                                                           <input type="checkbox" name="seleccionados[]" value="<?php echo $row->telefono?>" class="text-blue-500 rounded dark:bg-black dark:ring-offset-black-900 dark:border-black-700">
-                                                          <span class="text-black"><?php echo $row->distrito_electoral; ?></span>
+                                                          <span class="text-black uppercase"><?php echo $row->distrito_electoral; ?></span>
                                                       </div>
                                                   </td>
-                                                  <td class="px-4 py-4 text-medium text-black whitespace-nowrap" onclick="window.location.href='php/user-details.php?id=<?php echo $row->id; ?>'"><?php echo $row->nombre; ?> </td>
+                                                  <td class="px-4 py-4 text-medium text-black whitespace-nowrap uppercase" onclick="window.location.href='php/user-details.php?id=<?php echo $row->id; ?>'"><?php echo $row->nombre; ?> </td>
                                                   <td class="px-4 py-4 text-medium font-medium text-black-700 whitespace-nowrap">
                                                       <div class="inline-flex items-center px-3 py-1">                                            
-                                                          <h2 class="text-medium font-normal"><?php echo $row->apellido_paterno?> <?php echo $row->apellido_materno?></h2>
+                                                          <h2 class="text-medium font-normal uppercase"><?php echo $row->apellido_paterno?> <?php echo $row->apellido_materno?></h2>
                                                       </div>
                                                   </td>
-                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo $row->codigo_postal?></td>
-                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo $row->calle?></td>
-                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo $row->municipio?></td>
-                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap"><?php echo $row->colonia?></td>
+                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap uppercase"><?php echo $row->codigo_postal?></td>
+                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap uppercase"><?php echo $row->calle?></td>
+                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap uppercase"><?php echo $row->municipio?></td>
+                                                  <td class="px-4 py-4 text-medium text-black-500 text-black whitespace-nowrap uppercase"><?php echo $row->colonia?></td>
                                                   <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                       <div class="flex items-center gap-x-6">
                                                           <a href="php/update-militante-page.php?id=<?php echo $row->id?>">

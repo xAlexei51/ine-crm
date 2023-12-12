@@ -6,7 +6,7 @@
     <title>Registro</title>
 </head>
 <!-- Barra de navegacion -->
-
+<body>
 <!-- navbar goes here -->
 <nav class="bg-black">
   <div class="max-w-6xl mx-auto px-4">
@@ -16,7 +16,7 @@
         <!-- logo -->
         <div>
           <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">            
-            <span class="font-bold text-white text-lg">LOGO</span>
+            <span class="font-bold text-black text-lg">LOGO</span>
           </a>
         </div>        
       </div>
@@ -61,7 +61,7 @@
           <!-- Nombre (s) -->
           <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+              <label class="text-left block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Nombre(s)
               </label>
               <input name="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-nombre" type="text" placeholder="John Doe" required>
@@ -335,25 +335,24 @@
               </label>
               <input name="salario_mensual" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-salario" type="text" placeholder="$">
             </div>
-          </div>      
+          </div>     
+          <div class="cf-turnstile" data-sitekey="<YOUR_SITE_KEY>"></div> 
           <br><button type="submit" class="w-full bg-gray-800 text-white focus:outline-none mb focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">ENVIAR</button>
         </form>                
       </div>
     </div>
   </div>
 </div>
-  <script src="js/age-caclulator.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // grab everything we need
+  
+</body>
+<script src="js/age-caclulator.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
     const btn = document.querySelector("button.mobile-menu-button");
     const menu = document.querySelector(".mobile-menu");
     
-    // add event listeners
     btn.addEventListener("click", () => {
       menu.classList.toggle("hidden");
-    });
-    
-    </script>
-</body>
+    });    
+</script>
 </html>

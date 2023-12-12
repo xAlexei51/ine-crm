@@ -12,23 +12,6 @@
 
 require_once "db-connection.php";
 
-session_start();
-if(!isset($_SESSION['username'])){
-    echo "<script>";
-    echo "Swal.fire({
-            title: '¡Ups!',
-            text: 'Parece que no has iniciado sesion',
-            icon: 'warning',
-            confirmButtonText: '¡Entendido!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-            // Redirige a otra página después de cerrar el cuadro de diálogo
-            window.location.href = 'login.html';
-            }
-        });";
-    echo "</script>";
-  }
-
 #Identificacion 
 $nombre = ($_POST['nombre']);
 $apellido_paterno = ($_POST['apellido_paterno']);
@@ -94,42 +77,64 @@ try {
             'salario_mensual' => $salario_mensual            
         ];
         
-        $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
-        $stmt = $con->prepare($query);
-        if($stmt === false){
-            die('Error en la preparacion de la consulta: ' . $con->error);
-        }
-        
-        $stmt->execute($queryData);
-        
-        if($stmt){
+        $userExists = "SELECT * FROM militantes WHERE curp = ?";
+        $stmt = $con->prepare($userExists);
+        $stmt->bindParam(1, $curp);        
+        $stmt->execute();
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+                        
+        if ($res) {
             echo "<script>";
-            echo "Swal.fire({
-                    title: '¡Exito!',
-                    text: 'Registro guardado!',
-                    icon: 'success',
-                    confirmButtonText: '¡Entendido!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    // Redirige a otra página después de cerrar el cuadro de diálogo
-                    window.location.href = '../index.html';
-                    }
-                });";
-            echo "</script>";
-        }else {
-            echo "<script>";
-            echo "Swal.fire({
-                    title: 'Ups!',
-                    text: 'No se puedo guardar el registro, intenta de nuevo mas tarde!',
-                    icon: 'error',
-                    confirmButtonText: '¡Entendido!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    // Redirige a otra página después de cerrar el cuadro de diálogo
-                    window.location.href = '../adminUserList.php';
-                    }
-                });";
-            echo "</script>";
+                echo "Swal.fire({
+                        title: 'Ups!',
+                        text: 'Ya te has registrado anteriormente con esta CURP!',
+                        icon: 'error',
+                        confirmButtonText: '¡Entendido!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        // Redirige a otra página después de cerrar el cuadro de diálogo
+                        window.location.href = '../index.html';
+                        }
+                    });";
+                echo "</script>";
+        } else {
+            $query = "INSERT INTO militantes (" . implode(', ', array_keys($queryData)) . ") VALUES (:" . implode(', :', array_keys($queryData)) . ")";
+            $stmt = $con->prepare($query);
+            if($stmt === false){
+                die('Error en la preparacion de la consulta: ' . $con->error);
+            }
+            
+            $stmt->execute($queryData);
+            
+            if($stmt){
+                echo "<script>";
+                echo "Swal.fire({
+                        title: '¡Exito!',
+                        text: 'Registro guardado!',
+                        icon: 'success',
+                        confirmButtonText: '¡Entendido!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        // Redirige a otra página después de cerrar el cuadro de diálogo
+                        window.location.href = '../index.html';
+                        }
+                    });";
+                echo "</script>";
+            }else {
+                echo "<script>";
+                echo "Swal.fire({
+                        title: 'Ups!',
+                        text: 'No se puedo guardar el registro, intenta de nuevo mas tarde!',
+                        icon: 'error',
+                        confirmButtonText: '¡Entendido!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        // Redirige a otra página después de cerrar el cuadro de diálogo
+                        window.location.href = '../adminUserList.php';
+                        }
+                    });";
+                echo "</script>";
+            }
         }
       
 } catch (Exeception $th) {

@@ -51,15 +51,25 @@ try {
         $twilio = new Client($sid, $token);
     
         $message = $twilio->messages
-          ->create("whatsapp:+521".$phone, // to
-            array(
-              "from" => "whatsapp:+14155238886",
-              "body" => $messageWithoutTags
-            )
-          );
-    
-    print($message->sid);
+      ->create("whatsapp:+521".$phone, // to
+        array(
+          "from" => "whatsapp:+14155238886",
+          "body" => $message
+        )
+      );
     }
+    echo "<script>";
+    echo "Swal.fire({
+            title: 'Listo!',
+            text: 'Mensajes enviados!',
+            icon: 'success',
+            confirmButtonText: '¡Entendido!'
+        }).then((result) => {
+            if (result.isConfirmed) {          
+            window.location.href = '../militantesList.php';
+            }
+        });";
+    echo "</script>";
 } else {
   echo "<script>";
   echo "Swal.fire({
